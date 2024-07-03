@@ -2,7 +2,7 @@
 
 namespace ToDo_MAUI.Models;
 
-internal class ToDoItem
+public class ToDoItem
 {
     [PrimaryKey, AutoIncrement]
     public int Id { get; set; }

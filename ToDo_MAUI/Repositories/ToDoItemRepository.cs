@@ -3,7 +3,7 @@ using SQLite;
 
 namespace ToDo_MAUI.Repositories;
 
-internal class ToDoItemRepository : IToDoItemRepository
+public class ToDoItemRepository : IToDoItemRepository
 {
     private SQLiteAsyncConnection _connection;
 

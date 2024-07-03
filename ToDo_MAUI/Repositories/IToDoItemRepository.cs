@@ -2,7 +2,7 @@
 
 namespace ToDo_MAUI.Repositories;
 
-internal interface IToDoItemRepository
+public interface IToDoItemRepository
 {
     event EventHandler<ToDoItem> OnItemAdded;
     event EventHandler<ToDoItem> OnItemUpdated;
