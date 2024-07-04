@@ -19,8 +19,23 @@
     </ContentPage.ToolbarItems>
 
     <Grid RowDefinitions="Auto,*">
+        
         <Button Text="{Binding ShowAll, Converter={StaticResource filterTextConverter}, StringFormat='Filter {0}'}"
-                Command="{Binding ToggleFilterCommand}"/>
+                Command="{Binding ToggleFilterCommand}"
+                Style="{DynamicResource FilterButton}"
+                BackgroundColor="{DynamicResource ActiveColor}"
+                TextColor="Black">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button"
+                             Binding="{Binding ShowAll}">
+                    <Setter Property="BackgroundColor"
+                            Value="{DynamicResource CompletedColor}" />
+                    <Setter Property="TextColor"
+                            Value="White" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+        
         <ListView x:Name="ItemsListView"
                   Grid.Row="1"
                   RowHeight="70"
@@ -39,18 +54,21 @@
                             <BoxView Grid.RowSpan="2"
                                      BackgroundColor="{Binding Item.Completed, Converter={StaticResource statusColorConverter}}"/>
                             <Label Grid.Column="1"
+                                   Padding="6,0,0,0"
                                    Text="{Binding Item.Title}"
                                    FontSize="Medium" />
                             <Label Grid.Column="1"
                                    Grid.Row="1"
-                                   Text="{Binding Item.Due}"
+                                   Padding="6,0,0,0"
+                                   Text="{Binding Item.Due, StringFormat='{0:MMMM d, yyyy}'}"
                                    FontSize="Micro" />
                             <Label Grid.Column="1"
                                    Grid.Row="1"
                                    HorizontalTextAlignment="End"
                                    Text="Completed"
                                    IsVisible="{Binding Item.Completed}"
-                                   FontSize="Micro" />
+                                   FontSize="Micro"
+                                   TextColor="{StaticResource CompletedColor}"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
