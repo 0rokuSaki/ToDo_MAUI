@@ -2,9 +2,16 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:ToDo_MAUI.ViewModels"
+             xmlns:converters="clr-namespace:ToDo_MAUI.Converters"
              x:Class="ToDo_MAUI.Views.MainView"
              x:DataType="viewModels:MainViewModel"
              Title="To Do App">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:StatusColorConverter x:Key="statusColorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
@@ -21,7 +28,8 @@
                         <Grid Padding="15,10"
                               RowDefinitions="Auto,Auto"
                               ColumnDefinitions="10,*">
-                            <BoxView Grid.RowSpan="2" />
+                            <BoxView Grid.RowSpan="2"
+                                     BackgroundColor="{Binding Item.Completed, Converter={StaticResource statusColorConverter}}"/>
                             <Label Grid.Column="1"
                                    Text="{Binding Item.Title}"
                                    FontSize="Medium" />
