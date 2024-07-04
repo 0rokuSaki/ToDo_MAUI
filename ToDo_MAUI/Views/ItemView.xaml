@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ToDo_MAUI.ViewModels"
              x:Class="ToDo_MAUI.Views.ItemView"
-             Title="New To Do Item">
+             Title="New To Do Item"
+             x:DataType="viewModels:ItemViewModel">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save" />
+        <ToolbarItem Text="Save" Command="{Binding SaveCommand}"/>
     </ContentPage.ToolbarItems>
 
     <StackLayout Padding="14">
-        <Label Text="Title" />
+        <Label Text="{Binding Item.Title}" />
         <Entry />
         <Label Text="Due" />
-        <DatePicker />
+        <DatePicker Date="{Binding Item.Due}" />
         <StackLayout Orientation="Horizontal">
-            <Switch />
+            <Switch IsToggled="{Binding Item.Completed}" />
             <Label Text="Completed" />
         </StackLayout>
     </StackLayout>
