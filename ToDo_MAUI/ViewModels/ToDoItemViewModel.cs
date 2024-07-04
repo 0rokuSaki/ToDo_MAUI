@@ -10,6 +10,8 @@ public partial class ToDoItemViewModel : ViewModel
 
     public string StatusText => Item.Completed ? "Reactivate" : "Completed";
 
+    public event EventHandler ItemStatusChanged;
+
     public ToDoItemViewModel(ToDoItem item)
     {
         _item = item;
