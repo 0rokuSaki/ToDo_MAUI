@@ -12,6 +12,9 @@ public partial class MainViewModel : ViewModel
     [ObservableProperty]
     private ObservableCollection<ToDoItemViewModel>? _items;
 
+    [ObservableProperty]
+    private ToDoItemViewModel? _selectedItem;
+
     private readonly IToDoItemRepository _repository;
 
     private readonly IServiceProvider _serviceProvider;
@@ -24,6 +27,27 @@ public partial class MainViewModel : ViewModel
         _repository = repository;
         _serviceProvider = serviceProvider;
         Task.Run(async () => await LoadDataAsync());
+    }
+
+    partial void OnSelectedItemChanging(ToDoItemViewModel? value)
+    {
+        if (value == null)
+        {
+            return;
+        }
+        MainThread.BeginInvokeOnMainThread(async () =>
+        {
+            await NavigateToItemAsync(value);
+        });
+    }
+
+    private async Task NavigateToItemAsync(ToDoItemViewModel item)
+    {
+        var itemView = _serviceProvider.GetRequiredService<ItemView>();
+        var vm = itemView.BindingContext as ItemViewModel;
+        vm!.Item = item.Item;
+        itemView.Title = "Edit To Do Item";
+        await this.Navigation.PushAsync(itemView);
     }
 
     [RelayCommand]
