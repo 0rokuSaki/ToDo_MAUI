@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using ToDo_MAUI.Models;
 
 namespace ToDo_MAUI.ViewModels;
@@ -15,5 +16,12 @@ public partial class ToDoItemViewModel : ViewModel
     public ToDoItemViewModel(ToDoItem item)
     {
         _item = item;
+    }
+
+    [RelayCommand]
+    void ToggleCompleted()
+    {
+        Item.Completed = !Item.Completed;
+        ItemStatusChanged?.Invoke(this, EventArgs.Empty);
     }
 }
